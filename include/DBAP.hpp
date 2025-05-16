@@ -8,6 +8,7 @@ public:
     DBAP();
 
     ~DBAP();
+
 private:
-    QSqlDatabase db;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 };
