@@ -1,13 +1,24 @@
 #include <QApplication>
 
-#include "DBAP.hpp"
+#include <QLocale>
+#include <QTranslator>
 #include "FileManager.hpp"
-#include "gui/MainWindow.hpp"
+#include "Project.hpp"
+#include "view/MainWindow.hpp"
 
 int main(int argc, char* argv[]) {
+    QApplication application(argc, argv);
     FileManager fileManager;
-    QApplication a(argc, argv);
-    DBAP dbap;
+    Project project;
+
+    QTranslator translator;
+    for(const QString& locale : QLocale::system().uiLanguages()) {
+        const QString baseName = "untitled_" + QLocale(locale).name();
+        if(translator.load(":/i18n/" + baseName)) {
+            QApplication::installTranslator(&translator);
+            break;
+        }
+    }
 
     MainWindow mainWindow;
     mainWindow.show();

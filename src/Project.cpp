@@ -1,13 +1,16 @@
-#include "DBAP.hpp"
+#include "Project.hpp"
 
 #include <FileManager.hpp>
+#include <QtSql>
 
-DBAP::DBAP() {
-    const auto firstCreation = !exists(FileManager::getLocalDir() / "data.db");
-    QSqlQuery query;
+Project::Project() {
+    const auto isFirstCreation = !exists(FileManager::getLocalDir() / "data.db");
+    db = QSqlDatabase::addDatabase("QSQLITE");
 
     db.setDatabaseName((FileManager::getLocalDir() / "data.db").c_str());
     db.open();
+
+    QSqlQuery query;
 
     query.exec(R"(
         CREATE TABLE IF NOT EXISTS ExpensesTypes(
@@ -23,18 +26,30 @@ DBAP::DBAP() {
             Type INTEGER NOT NULL,
             ExpenseTime DATETIME NOT NULL,
             Cost REAL NOT NULL,
-            FOREIGN KEY (RelatedProject) REFERENCES Projects(Id),
             FOREIGN KEY (Type) REFERENCES ExpensesTypes(Id)
         );
     )");
 
     query.exec("PRAGMA foreign_keys = ON;");
 
-    if(firstCreation) {
+    if(isFirstCreation) {
         //TODO Add base expense types
     }
 }
 
-DBAP::~DBAP() {
+Project::~Project() {
     db.close();
 }
+
+QSqlTableModel* Project::getPlanedExpensesTableModel() {
+    if(!planedExpensesTableModel) {
+        planedExpensesTableModel = new QSqlTableModel(nullptr, db);
+        planedExpensesTableModel->setTable("PlanedExpenses");
+        planedExpensesTableModel->select();
+    }
+
+    return planedExpensesTableModel;
+}
+
+QSqlDatabase Project::db;
+QSqlTableModel* Project::planedExpensesTableModel;
