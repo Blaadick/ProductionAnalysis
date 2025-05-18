@@ -12,12 +12,8 @@ int main(int argc, char* argv[]) {
     Project project;
 
     QTranslator translator;
-    for(const QString& locale : QLocale::system().uiLanguages()) {
-        const QString baseName = "untitled_" + QLocale(locale).name();
-        if(translator.load(":/i18n/" + baseName)) {
-            QApplication::installTranslator(&translator);
-            break;
-        }
+    if(translator.load(":/i18n/ProductionAnalysis_ru_RU")) {
+        QApplication::installTranslator(&translator);
     }
 
     MainWindow mainWindow;

@@ -15,7 +15,7 @@ public:
 
     ~MainWindow() override;
 
-    void newDocument() const;
+    void document() const;
 
 private:
     CreationModel* creationModel;
