@@ -1,17 +1,23 @@
 #pragma once
 
-#include <QSqlTableModel>
+#include <QSqlRelationalTableModel>
+
+struct ExpenseType {
+    QString name;
+    int id;
+};
 
 class ProjectData final : public QObject {
+    Q_OBJECT
+
 public:
     ProjectData();
 
     ~ProjectData() override;
 
-    static QSqlTableModel* getExpensesSqlTableModel();
-
     static void addExpense(
         const QString& vendor,
+        int type,
         const QString& description,
         const QDate& planedDate,
         double planedCost
@@ -19,7 +25,11 @@ public:
 
     static void removeExpense(int id);
 
+    static QList<ExpenseType> getExpensesTypes();
+
+    static QSqlTableModel* getExpensesSqlTableModel();
+
 private:
     static QSqlDatabase db;
-    static QSqlTableModel* expensesTableModel;
+    static QSqlRelationalTableModel* expensesTableModel;
 };

@@ -1,9 +1,11 @@
 #pragma once
 
+#include <QComboBox>
 #include <QDateEdit>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMdiSubWindow>
+#include <QPlainTextEdit>
 #include <QSpinBox>
 
 class ExpenseCreationWindow final : public QMdiSubWindow {
@@ -15,6 +17,7 @@ public:
 private:
     QLineEdit* vendorEditLine;
     QLabel* vendorLabel;
+    QComboBox* typeComboBox;
     QPlainTextEdit* descriptionEditBox;
     QDateEdit* planedDateEditLine;
     QDoubleSpinBox* planedCostEditLine;

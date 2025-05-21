@@ -15,6 +15,11 @@ ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(pa
     vendorEditLine = new QLineEdit(this);
     descriptionEditBox = new QPlainTextEdit(this);
 
+    typeComboBox = new QComboBox(this);
+    for(const auto& [name, id] : ProjectData::getExpensesTypes()) {
+        typeComboBox->addItem(name, id);
+    }
+
     planedDateEditLine = new QDateEdit(this);
     planedDateEditLine->setDate(QDate::currentDate());
     planedDateEditLine->setCalendarPopup(true);
@@ -25,6 +30,8 @@ ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(pa
 
     vendorLabel = new QLabel(tr("Vendor"), this);
     vendorLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
+    auto* typeLabel = new QLabel(tr("Type"), this);
+    typeLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
     auto* descriptionLabel = new QLabel(tr("Description"), this);
     descriptionLabel->setAlignment(Qt::AlignTop | Qt::AlignRight);
     auto* planedDateLabel = new QLabel(tr("Planed Date"), this);
@@ -34,10 +41,12 @@ ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(pa
 
     gridLayout->addWidget(vendorLabel, 0, 0, 1, 1);
     gridLayout->addWidget(vendorEditLine, 0, 1, 1, 1);
-    gridLayout->addWidget(descriptionLabel, 1, 0, 1, 1);
-    gridLayout->addWidget(descriptionEditBox, 1, 1, 1, 1);
-    gridLayout->addWidget(planedDateLabel, 2, 0, 1, 1);
-    gridLayout->addWidget(planedDateEditLine, 2, 1, 1, 1);
+    gridLayout->addWidget(typeLabel, 1, 0, 1, 1);
+    gridLayout->addWidget(typeComboBox, 1, 1, 1, 1);
+    gridLayout->addWidget(descriptionLabel, 2, 0, 1, 1);
+    gridLayout->addWidget(descriptionEditBox, 2, 1, 1, 1);
+    gridLayout->addWidget(planedDateLabel, 3, 0, 1, 1);
+    gridLayout->addWidget(planedDateEditLine, 3, 1, 1, 1);
     gridLayout->addWidget(planedCostLabel, 4, 0, 1, 1);
     gridLayout->addWidget(planedCostEditLine, 4, 1, 1, 1);
 
@@ -51,7 +60,7 @@ ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(pa
     horizontalLayout->addWidget(cancelButton);
 
     setWidget(centralWidget);
-    setWindowTitle(tr("Create Expense"));
+    setWindowTitle(tr("Expense Creation"));
     resize(400, 300);
 
     connect(confirmButton, &QPushButton::clicked, this, &ExpenseCreationWindow::confirmCreation);
@@ -66,6 +75,7 @@ void ExpenseCreationWindow::confirmCreation() {
 
     ProjectData::addExpense(
         vendorEditLine->text(),
+        typeComboBox->currentData().toInt(),
         descriptionEditBox->toPlainText(),
         planedDateEditLine->date(),
         planedCostEditLine->value()

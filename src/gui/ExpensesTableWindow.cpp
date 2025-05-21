@@ -2,6 +2,7 @@
 
 #include <qdatetime.h>
 #include <QHeaderView>
+#include <QMenu>
 #include <QPainter>
 #include "ProjectData.hpp"
 
@@ -14,7 +15,7 @@ ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(ProjectData::getExpensesSqlTableModel());
     tableView->hideColumn(0);
-    tableView->sortByColumn(3, Qt::DescendingOrder);
+    tableView->sortByColumn(4, Qt::DescendingOrder);
     tableView->setItemDelegate(new ExpensesTableDelegate(tableView));
     tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 
@@ -32,9 +33,9 @@ void ExpensesTableWindow::ExpensesTableDelegate::paint(
     const QStyleOptionViewItem& option,
     const QModelIndex& index
 ) const {
-    if(index.column() == 6) {
-        const auto planedCost = index.sibling(index.row(), 5).data().toDouble();
-        const auto actualCostData = index.sibling(index.row(), 6).data();
+    if(index.column() == 7) {
+        const auto planedCost = index.sibling(index.row(), 6).data().toDouble();
+        const auto actualCostData = index.sibling(index.row(), 7).data();
         const auto actualCost = actualCostData.toDouble();
 
         if(!actualCostData.isNull() && planedCost > actualCost) {
@@ -46,9 +47,9 @@ void ExpensesTableWindow::ExpensesTableDelegate::paint(
         }
     }
 
-    if(index.column() == 4) {
-        const auto planedDate = index.sibling(index.row(), 3).data().toDate();
-        const auto actualDate = index.sibling(index.row(), 4).data().toDate();
+    if(index.column() == 5) {
+        const auto planedDate = index.sibling(index.row(), 4).data().toDate();
+        const auto actualDate = index.sibling(index.row(), 5).data().toDate();
 
         if(actualDate.isValid() && planedDate > actualDate) {
             painter->fillRect(option.rect, QColor("#CCFFCC"));

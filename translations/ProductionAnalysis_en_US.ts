@@ -4,45 +4,50 @@
 <context>
     <name>ExpenseCreationWindow</name>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="26"/>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="31"/>
         <source>Vendor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="28"/>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="33"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="35"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="30"/>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="37"/>
         <source>Planed Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="32"/>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="39"/>
         <source>Planed Cost</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="47"/>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="56"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="48"/>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="57"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="54"/>
-        <source>Create Expense</source>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="63"/>
+        <source>Expense Creation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ExpensesTableWindow</name>
     <message>
-        <location filename="../src/gui/ExpensesTableWindow.cpp" line="22"/>
+        <location filename="../src/gui/ExpensesTableWindow.cpp" line="23"/>
         <source>Expenses Table</source>
         <translation type="unfinished"></translation>
     </message>
@@ -108,32 +113,37 @@
 <context>
     <name>ProjectData</name>
     <message>
-        <location filename="../src/ProjectData.cpp" line="42"/>
+        <location filename="../src/ProjectData.cpp" line="87"/>
         <source>Vendor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="43"/>
+        <location filename="../src/ProjectData.cpp" line="88"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ProjectData.cpp" line="89"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="44"/>
+        <location filename="../src/ProjectData.cpp" line="90"/>
         <source>Planed Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="45"/>
+        <location filename="../src/ProjectData.cpp" line="91"/>
         <source>Actual Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="46"/>
+        <location filename="../src/ProjectData.cpp" line="92"/>
         <source>Planed Cost</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="47"/>
+        <location filename="../src/ProjectData.cpp" line="93"/>
         <source>Actual Cost</source>
         <translation type="unfinished"></translation>
     </message>
