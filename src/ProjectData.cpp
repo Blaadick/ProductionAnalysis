@@ -24,6 +24,7 @@ ProjectData::ProjectData() {
 }
 
 ProjectData::~ProjectData() {
+    delete expensesTableModel;
     db.close();
 }
 

@@ -3,16 +3,15 @@
 #include <QDateEdit>
 #include <QLineEdit>
 #include <QSpinBox>
-#include "view/ExpensesTableWindow.hpp"
+#include "gui/ExpensesTableWindow.hpp"
 
-class NewExpenseWindow final : public QMdiSubWindow {
+class ExpenseCreationWindow final : public QMdiSubWindow {
     Q_OBJECT
 
 public:
-    explicit NewExpenseWindow(QWidget* parent = nullptr);
+    explicit ExpenseCreationWindow(QWidget* parent = nullptr);
 
 private:
-    ExpensesTableModel* expensesTableModel;
     QLineEdit* vendorEditLine;
     QPlainTextEdit* descriptionEditBox;
     QDateEdit* planedDateEditLine;

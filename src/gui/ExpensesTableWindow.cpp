@@ -1,4 +1,4 @@
-#include "view/ExpensesTableWindow.hpp"
+#include "gui/ExpensesTableWindow.hpp"
 
 #include <qdatetime.h>
 #include <QHeaderView>
@@ -7,7 +7,6 @@
 
 ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent) {
     tableView = new QTableView(this);
-    expensesTableModel = new ExpensesTableModel(this);
 
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -70,8 +69,9 @@ void ExpensesTableWindow::showContextMenu(const QPoint& pos) const {
     const auto* actionEdit = menu.addAction("Edit");
     const auto* actionDelete = menu.addAction("Delete");
 
-    connect(actionDelete, &QAction::triggered, expensesTableModel, [this, index] {
-        expensesTableModel->removeExpense(index.sibling(index.row(), 0).data().toInt());
+    connect(actionDelete, &QAction::triggered, this, [this, index] {
+        ProjectData::removeExpense(index.sibling(index.row(), 0).data().toInt());
+        ProjectData::getExpensesSqlTableModel()->select();
     });
 
     menu.exec(QCursor::pos());

@@ -1,11 +1,12 @@
-#include "view/NewExpenseWindow.hpp"
+#include "gui/ExpenseCreationWindow.hpp"
 
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
 
-NewExpenseWindow::NewExpenseWindow(QWidget* parent) : QMdiSubWindow(parent) {
-    expensesTableModel = new ExpensesTableModel(this);
+#include "ProjectData.hpp"
+
+ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(parent) {
     auto* centralWidget = new QWidget(this);
     auto* centralLayout = new QVBoxLayout();
     centralWidget->setLayout(centralLayout);
@@ -52,17 +53,18 @@ NewExpenseWindow::NewExpenseWindow(QWidget* parent) : QMdiSubWindow(parent) {
     setWindowTitle("New Expense");
     resize(400, 300);
 
-    connect(confirmButton, &QPushButton::clicked, this, &NewExpenseWindow::confirm);
+    connect(confirmButton, &QPushButton::clicked, this, &ExpenseCreationWindow::confirm);
     connect(cancelButton, &QPushButton::clicked, this, &QMdiSubWindow::close);
 }
 
-void NewExpenseWindow::confirm() {
-    expensesTableModel->addExpense(
+void ExpenseCreationWindow::confirm() {
+    ProjectData::addExpense(
         vendorEditLine->text(),
         descriptionEditBox->toPlainText(),
         planedDateEditLine->date(),
         planedCostEditLine->value()
     );
 
+    ProjectData::getExpensesSqlTableModel()->select();
     close();
 }

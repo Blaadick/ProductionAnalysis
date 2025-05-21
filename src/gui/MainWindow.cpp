@@ -1,10 +1,10 @@
-#include "view/MainWindow.hpp"
+#include "gui/MainWindow.hpp"
 
 #include <QMenuBar>
 #include <QToolBar>
 #include <QWidget>
-#include "view/ExpensesTableWindow.hpp"
-#include "view/NewExpenseWindow.hpp"
+#include "gui/ExpensesTableWindow.hpp"
+#include "gui/ExpenseCreationWindow.hpp"
 
 MainWindow::MainWindow() {
     mdiArea = new QMdiArea(this);
@@ -45,17 +45,11 @@ void MainWindow::setupMenuBar() {
 
     setMenuBar(menuBar);
 
-    connect(actionNewExpense, &QAction::triggered, mdiArea, [this] {
-        auto* newExpenseWindow = new NewExpenseWindow(mdiArea);
-        mdiArea->addSubWindow(newExpenseWindow);
-        newExpenseWindow->show();
-    });
+    connect(actionNewExpense, &QAction::triggered, this, &MainWindow::openExpenseCreationWindow);
 
     connect(actionExit, &QAction::triggered, this, &MainWindow::close);
 
-    connect(actionFullScreen, &QAction::triggered, this, [this] {
-        isFullScreen() ? showNormal() : showFullScreen();
-    });
+    connect(actionFullScreen, &QAction::triggered, this, &MainWindow::toggleFullScreen);
     connect(actionCascadeWindows, &QAction::triggered, mdiArea, &QMdiArea::cascadeSubWindows);
     connect(actionTileWindows, &QAction::triggered, mdiArea, &QMdiArea::tileSubWindows);
     connect(actionCloseAll, &QAction::triggered, mdiArea, &QMdiArea::closeAllSubWindows);
@@ -71,9 +65,21 @@ void MainWindow::setupToolBar() {
     toolBar->setFloatable(false);
     addToolBar(toolBar);
 
-    connect(action1, &QAction::triggered, mdiArea, [this] {
-        auto* expensesTable = new ExpensesTableWindow(mdiArea);
-        mdiArea->addSubWindow(expensesTable);
-        expensesTable->show();
-    });
+    connect(action1, &QAction::triggered, this, &MainWindow::openExpensesTableWindow);
+}
+
+void MainWindow::toggleFullScreen() {
+    isFullScreen() ? showNormal() : showFullScreen();
+}
+
+void MainWindow::openExpensesTableWindow() const {
+    auto* expensesTable = new ExpensesTableWindow(mdiArea);
+    mdiArea->addSubWindow(expensesTable);
+    expensesTable->show();
+}
+
+void MainWindow::openExpenseCreationWindow() const {
+    auto* expenseCreationWindow = new ExpenseCreationWindow(mdiArea);
+    mdiArea->addSubWindow(expenseCreationWindow);
+    expenseCreationWindow->show();
 }

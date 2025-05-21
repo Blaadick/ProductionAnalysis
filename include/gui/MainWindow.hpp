@@ -19,4 +19,10 @@ private:
     void setupMenuBar();
 
     void setupToolBar();
+
+    void toggleFullScreen();
+
+    void openExpensesTableWindow() const;
+
+    void openExpenseCreationWindow() const;
 };

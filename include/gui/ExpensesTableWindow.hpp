@@ -3,8 +3,7 @@
 #include <QMdiSubWindow>
 #include <QStyledItemDelegate>
 #include <QTableView>
-#include "model/ExpensesTableModel.hpp"
-#include "view/MainWindow.hpp"
+#include "gui/MainWindow.hpp"
 
 class ExpensesTableWindow final : public QMdiSubWindow {
     Q_OBJECT
@@ -21,7 +20,6 @@ private:
     };
 
     QTableView* tableView;
-    ExpensesTableModel* expensesTableModel;
 
 private slots:
     void showContextMenu(const QPoint& pos) const;
