@@ -4,11 +4,6 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="28"/>
-        <source>File</source>
-        <translation>Файл</translation>
-    </message>
-    <message>
         <location filename="../src/view/MainWindow.cpp" line="29"/>
         <source>New Project</source>
         <translation>Создать проект</translation>
@@ -24,14 +19,19 @@
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="39"/>
-        <source>View</source>
-        <translation>Вид</translation>
+        <location filename="../src/view/MainWindow.cpp" line="42"/>
+        <source>&amp;Window</source>
+        <translation>&amp;Окно</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="42"/>
-        <source>Window</source>
-        <translation>Окно</translation>
+        <location filename="../src/view/MainWindow.cpp" line="28"/>
+        <source>&amp;File</source>
+        <translation>&amp;Файл</translation>
+    </message>
+    <message>
+        <location filename="../src/view/MainWindow.cpp" line="39"/>
+        <source>&amp;View</source>
+        <translation>&amp;Вид</translation>
     </message>
     <message>
         <location filename="../src/view/MainWindow.cpp" line="43"/>
@@ -54,9 +54,9 @@
         <translation>Закрыть все окна</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="81"/>
+        <location filename="../src/view/MainWindow.cpp" line="83"/>
         <source>Document</source>
-        <translation type="unfinished">Документ</translation>
+        <translation>Документ</translation>
     </message>
 </context>
 </TS>

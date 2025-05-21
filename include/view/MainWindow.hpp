@@ -5,8 +5,6 @@
 #include <QMenuBar>
 #include <QPlainTextEdit>
 
-#include "model/CreationModel.hpp"
-
 class MainWindow final : public QMainWindow {
     Q_OBJECT
 
@@ -15,10 +13,7 @@ public:
 
     ~MainWindow() override;
 
-    void document() const;
-
 private:
-    CreationModel* creationModel;
     QMdiArea* mdiArea;
 
     void setupMenuBar();

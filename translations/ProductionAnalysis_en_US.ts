@@ -4,11 +4,6 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="28"/>
-        <source>File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/view/MainWindow.cpp" line="29"/>
         <source>New Project</source>
         <translation type="unfinished"></translation>
@@ -24,13 +19,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/view/MainWindow.cpp" line="28"/>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/view/MainWindow.cpp" line="39"/>
-        <source>View</source>
+        <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/view/MainWindow.cpp" line="42"/>
-        <source>Window</source>
+        <source>&amp;Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -54,7 +54,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="81"/>
+        <location filename="../src/view/MainWindow.cpp" line="83"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>

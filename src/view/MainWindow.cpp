@@ -1,15 +1,11 @@
 #include "view/MainWindow.hpp"
 
-#include <QMdiSubWindow>
 #include <QMenuBar>
-#include <QTableView>
 #include <QToolBar>
 #include <QWidget>
-#include "Project.hpp"
-#include "model/CreationModel.hpp"
+#include "view/ExpensesTableWindow.hpp"
 
 MainWindow::MainWindow() {
-    creationModel = new CreationModel();
     mdiArea = new QMdiArea(this);
 
     setupMenuBar();
@@ -17,15 +13,15 @@ MainWindow::MainWindow() {
 
     setCentralWidget(mdiArea);
     setContextMenuPolicy(Qt::NoContextMenu);
+
+    show();
 }
 
-MainWindow::~MainWindow() {
-    delete creationModel;
-}
+MainWindow::~MainWindow() {}
 
 void MainWindow::setupMenuBar() {
     auto* menuBar = new QMenuBar(this);
-    auto* menuFile = new QMenu(tr("File"), menuBar);
+    auto* menuFile = new QMenu(tr("&File"), menuBar);
     auto* actionNewProject = new QAction(tr("New Project"), menuFile);
     auto* actionOpenProject = new QAction(tr("Open Project"), menuFile);
     auto* actionExit = new QAction(tr("Exit"), menuFile);
@@ -36,10 +32,10 @@ void MainWindow::setupMenuBar() {
     menuFile->addSeparator();
     menuFile->addAction(actionExit);
 
-    auto* menuView = new QMenu(tr("View"), menuBar);
+    auto* menuView = new QMenu(tr("&View"), menuBar);
     menuBar->addMenu(menuView);
 
-    auto* menuWindow = new QMenu(tr("Window"), menuBar);
+    auto* menuWindow = new QMenu(tr("&Window"), menuBar);
     auto* actionFullScreen = new QAction(tr("Full Screen"), menuWindow);
     auto* actionCascadeWindows = new QAction(tr("Cascade Windows"), menuWindow);
     auto* actionTileWindows = new QAction(tr("Tile Windows"), menuWindow);
@@ -52,12 +48,10 @@ void MainWindow::setupMenuBar() {
     menuWindow->addSeparator();
     menuWindow->addAction(actionCloseAll);
 
+    actionFullScreen->setShortcut(Qt::Key_F11);
+
     setMenuBar(menuBar);
 
-    connect(actionNewProject, &QAction::triggered, creationModel, &CreationModel::increment);
-    connect(creationModel, &CreationModel::incremented, actionOpenProject, [actionOpenProject](const int newCount) {
-        actionOpenProject->setText(QString::number(newCount));
-    });
     connect(actionExit, &QAction::triggered, this, &MainWindow::close);
 
     connect(actionFullScreen, &QAction::triggered, this, [this] {
@@ -70,17 +64,6 @@ void MainWindow::setupMenuBar() {
     connect(actionCascadeWindows, &QAction::triggered, mdiArea, &QMdiArea::cascadeSubWindows);
     connect(actionTileWindows, &QAction::triggered, mdiArea, &QMdiArea::tileSubWindows);
     connect(actionCloseAll, &QAction::triggered, mdiArea, &QMdiArea::closeAllSubWindows);
-}
-
-void MainWindow::document() const {
-    auto* tableView = new QTableView();
-    tableView->setModel(Project::getPlanedExpensesTableModel());
-    tableView->hideColumn(0);
-
-    QMdiSubWindow* subWindow = mdiArea->addSubWindow(tableView);
-    subWindow->setWindowTitle(tr("Document"));
-    subWindow->setWindowIcon(style()->standardIcon(QStyle::SP_FileIcon));
-    subWindow->show();
 }
 
 void MainWindow::setupToolBar() {
@@ -97,5 +80,9 @@ void MainWindow::setupToolBar() {
     toolBar->addAction(action4);
     addToolBar(toolBar);
 
-    connect(action1, &QAction::triggered, this, &MainWindow::document);
+    connect(action1, &QAction::triggered, this, [this] {
+        auto* expensesTable = new ExpensesTableWindow(mdiArea);
+        mdiArea->addSubWindow(expensesTable);
+        expensesTable->show();
+    });
 }
