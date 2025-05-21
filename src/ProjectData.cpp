@@ -51,5 +51,21 @@ QSqlTableModel* ProjectData::getExpensesSqlTableModel() {
     return expensesTableModel;
 }
 
+void ProjectData::addExpense(
+    const QString& vendor,
+    const QString& description,
+    const QDate& planedDate,
+    const double planedCost
+) {
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO Expenses (Vendor, Description, PlanedDate, PlanedCost) VALUES (?, ?, ?, ?)");
+    query.addBindValue(vendor);
+    query.addBindValue(description);
+    query.addBindValue(planedDate.toString("yyyy-MM-dd"));
+    query.addBindValue(planedCost);
+    query.exec();
+}
+
 QSqlDatabase ProjectData::db;
 QSqlTableModel* ProjectData::expensesTableModel;

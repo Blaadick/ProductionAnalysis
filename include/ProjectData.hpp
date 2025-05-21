@@ -8,9 +8,16 @@ public:
 
     ~ProjectData() override;
 
-    static void removeExpense(int id);
-
     static QSqlTableModel* getExpensesSqlTableModel();
+
+    static void addExpense(
+        const QString& vendor,
+        const QString& description,
+        const QDate& planedDate,
+        double planedCost
+    );
+
+    static void removeExpense(int id);
 
 private:
     static QSqlDatabase db;

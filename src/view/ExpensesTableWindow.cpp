@@ -22,7 +22,6 @@ ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent
     setWidget(tableView);
     setWindowTitle(tr("Expenses Table"));
     resize(800, 400);
-    setAttribute(Qt::WA_DeleteOnClose);
 
     connect(tableView, &QTableView::customContextMenuRequested, this, &ExpensesTableWindow::showContextMenu);
 }
@@ -38,11 +37,11 @@ void ExpensesTableWindow::ExpensesTableDelegate::paint(
         const auto planedCost = index.sibling(index.row(), 5).data().toDouble();
         const auto actualCost = index.sibling(index.row(), 6).data().toDouble();
 
-        if(planedCost < actualCost) {
+        if(planedCost > actualCost) {
             painter->fillRect(option.rect, QColor("#CCFFCC"));
         }
 
-        if(planedCost > actualCost) {
+        if(planedCost < actualCost) {
             painter->fillRect(option.rect, QColor("#FFCCCC"));
         }
     }
@@ -51,7 +50,7 @@ void ExpensesTableWindow::ExpensesTableDelegate::paint(
         const auto planedDate = index.sibling(index.row(), 3).data().toDate();
         const auto actualDate = index.sibling(index.row(), 4).data().toDate();
 
-        if(planedDate > actualDate) {
+        if(actualDate.isValid() && planedDate > actualDate) {
             painter->fillRect(option.rect, QColor("#CCFFCC"));
         }
 

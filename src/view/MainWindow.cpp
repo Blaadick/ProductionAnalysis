@@ -4,6 +4,7 @@
 #include <QToolBar>
 #include <QWidget>
 #include "view/ExpensesTableWindow.hpp"
+#include "view/NewExpenseWindow.hpp"
 
 MainWindow::MainWindow() {
     mdiArea = new QMdiArea(this);
@@ -21,45 +22,39 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::setupMenuBar() {
     auto* menuBar = new QMenuBar(this);
-    auto* menuFile = new QMenu(tr("&File"), menuBar);
-    auto* actionNewProject = new QAction(tr("New Project"), menuFile);
-    auto* actionOpenProject = new QAction(tr("Open Project"), menuFile);
-    auto* actionExit = new QAction(tr("Exit"), menuFile);
-    menuBar->addMenu(menuFile);
-    menuFile->addAction(actionNewProject);
-    menuFile->addSeparator();
-    menuFile->addAction(actionOpenProject);
-    menuFile->addSeparator();
-    menuFile->addAction(actionExit);
 
-    auto* menuView = new QMenu(tr("&View"), menuBar);
-    menuBar->addMenu(menuView);
+    auto* menuFile = menuBar->addMenu(tr("&File"));
+    menuFile->addAction(tr("New Project"));
+    const auto* actionNewExpense = menuFile->addAction(tr("New Expense"));
+    menuFile->addSeparator();
+    menuFile->addAction(tr("Open Project"));
+    menuFile->addSeparator();
+    const auto* actionExit = menuFile->addAction(tr("Exit"));
 
-    auto* menuWindow = new QMenu(tr("&Window"), menuBar);
-    auto* actionFullScreen = new QAction(tr("Full Screen"), menuWindow);
-    auto* actionCascadeWindows = new QAction(tr("Cascade Windows"), menuWindow);
-    auto* actionTileWindows = new QAction(tr("Tile Windows"), menuWindow);
-    auto* actionCloseAll = new QAction(tr("Close All"), menuWindow);
-    menuBar->addMenu(menuWindow);
-    menuWindow->addAction(actionFullScreen);
+    menuBar->addMenu(tr("&View"));
+
+    auto* menuWindow = menuBar->addMenu(tr("&Window"));
+    auto* actionFullScreen = menuWindow->addAction(tr("Full Screen"));
     menuWindow->addSeparator();
-    menuWindow->addAction(actionCascadeWindows);
-    menuWindow->addAction(actionTileWindows);
+    const auto* actionCascadeWindows = menuWindow->addAction(tr("Cascade Windows"));
+    const auto* actionTileWindows = menuWindow->addAction(tr("Tile Windows"));
     menuWindow->addSeparator();
-    menuWindow->addAction(actionCloseAll);
+    const auto* actionCloseAll = menuWindow->addAction(tr("Close All"));
 
     actionFullScreen->setShortcut(Qt::Key_F11);
 
     setMenuBar(menuBar);
 
+    connect(actionNewExpense, &QAction::triggered, mdiArea, [this] {
+        auto* newExpenseWindow = new NewExpenseWindow(mdiArea);
+        mdiArea->addSubWindow(newExpenseWindow);
+        newExpenseWindow->show();
+    });
+
     connect(actionExit, &QAction::triggered, this, &MainWindow::close);
 
     connect(actionFullScreen, &QAction::triggered, this, [this] {
-        if(isFullScreen()) {
-            showNormal();
-        } else {
-            showFullScreen();
-        }
+        isFullScreen() ? showNormal() : showFullScreen();
     });
     connect(actionCascadeWindows, &QAction::triggered, mdiArea, &QMdiArea::cascadeSubWindows);
     connect(actionTileWindows, &QAction::triggered, mdiArea, &QMdiArea::tileSubWindows);
@@ -68,19 +63,15 @@ void MainWindow::setupMenuBar() {
 
 void MainWindow::setupToolBar() {
     auto* toolBar = new QToolBar(this);
-    auto* action1 = new QAction(QIcon::fromTheme("aseprite"), "Aseprite", toolBar);
-    auto* action2 = new QAction(QIcon::fromTheme("firefox"), "Firefox", toolBar);
-    auto* action3 = new QAction(QIcon::fromTheme("org.prismlauncher.PrismLauncher"), "PrismLauncher", toolBar);
-    auto* action4 = new QAction(QIcon::fromTheme("kitty"), "Kitty", toolBar);
+    const auto* action1 = toolBar->addAction(QIcon::fromTheme("aseprite"), "Aseprite");
+    toolBar->addAction(QIcon::fromTheme("firefox"), "Firefox");
+    toolBar->addAction(QIcon::fromTheme("org.prismlauncher.PrismLauncher"), "PrismLauncher");
+    toolBar->addAction(QIcon::fromTheme("kitty"), "Kitty");
     toolBar->setIconSize(QSize(32, 32));
     toolBar->setFloatable(false);
-    toolBar->addAction(action1);
-    toolBar->addAction(action2);
-    toolBar->addAction(action3);
-    toolBar->addAction(action4);
     addToolBar(toolBar);
 
-    connect(action1, &QAction::triggered, this, [this] {
+    connect(action1, &QAction::triggered, mdiArea, [this] {
         auto* expensesTable = new ExpensesTableWindow(mdiArea);
         mdiArea->addSubWindow(expensesTable);
         expensesTable->show();

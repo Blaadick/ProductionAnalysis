@@ -10,4 +10,11 @@ public:
 
 public slots:
     void removeExpense(int id);
+
+    void addExpense(
+        const QString& vendor,
+        const QString& description,
+        const QDate& planedDate,
+        double planedCost
+    );
 };
