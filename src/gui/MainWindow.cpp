@@ -3,8 +3,8 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <QWidget>
-#include "gui/ExpensesTableWindow.hpp"
 #include "gui/ExpenseCreationWindow.hpp"
+#include "gui/ExpensesTableWindow.hpp"
 
 MainWindow::MainWindow() {
     mdiArea = new QMdiArea(this);

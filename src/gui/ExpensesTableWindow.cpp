@@ -34,9 +34,10 @@ void ExpensesTableWindow::ExpensesTableDelegate::paint(
 ) const {
     if(index.column() == 6) {
         const auto planedCost = index.sibling(index.row(), 5).data().toDouble();
-        const auto actualCost = index.sibling(index.row(), 6).data().toDouble();
+        const auto actualCostData = index.sibling(index.row(), 6).data();
+        const auto actualCost = actualCostData.toDouble();
 
-        if(planedCost > actualCost) {
+        if(!actualCostData.isNull() && planedCost > actualCost) {
             painter->fillRect(option.rect, QColor("#CCFFCC"));
         }
 

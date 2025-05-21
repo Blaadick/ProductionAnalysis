@@ -2,101 +2,140 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU" sourcelanguage="en">
 <context>
+    <name>ExpenseCreationWindow</name>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="26"/>
+        <source>Vendor</source>
+        <translation>Поставщик</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="28"/>
+        <source>Description</source>
+        <translation>Описание</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="30"/>
+        <source>Planed Date</source>
+        <translation>Планируемая дата</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="32"/>
+        <source>Planed Cost</source>
+        <translation>Планируемая стоимость</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="47"/>
+        <source>Confirm</source>
+        <translation>Подтвердить</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="48"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/ExpenseCreationWindow.cpp" line="54"/>
+        <source>Create Expense</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ExpensesTableWindow</name>
     <message>
-        <location filename="../src/view/ExpensesTableWindow.cpp" line="23"/>
+        <location filename="../src/gui/ExpensesTableWindow.cpp" line="22"/>
         <source>Expenses Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Таблица расходов</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="25"/>
+        <location filename="../src/gui/MainWindow.cpp" line="27"/>
         <source>New Project</source>
         <translation>Создать проект</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="26"/>
+        <location filename="../src/gui/MainWindow.cpp" line="30"/>
         <source>Open Project</source>
         <translation>Открыть проект</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="27"/>
+        <location filename="../src/gui/MainWindow.cpp" line="32"/>
         <source>Exit</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="38"/>
+        <location filename="../src/gui/MainWindow.cpp" line="36"/>
         <source>&amp;Window</source>
         <translation>&amp;Окно</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="24"/>
+        <location filename="../src/gui/MainWindow.cpp" line="26"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="35"/>
+        <location filename="../src/gui/MainWindow.cpp" line="28"/>
+        <source>New Expense</source>
+        <translation>Добавить затрату</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/MainWindow.cpp" line="34"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="39"/>
+        <location filename="../src/gui/MainWindow.cpp" line="37"/>
         <source>Full Screen</source>
         <translation>Полный экран</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="40"/>
+        <location filename="../src/gui/MainWindow.cpp" line="39"/>
         <source>Cascade Windows</source>
         <translation>Окна каскадом</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="41"/>
+        <location filename="../src/gui/MainWindow.cpp" line="40"/>
         <source>Tile Windows</source>
         <translation>Окна плиткой</translation>
     </message>
     <message>
-        <location filename="../src/view/MainWindow.cpp" line="42"/>
+        <location filename="../src/gui/MainWindow.cpp" line="42"/>
         <source>Close All</source>
         <translation>Закрыть все окна</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="vanished">Документ</translation>
     </message>
 </context>
 <context>
     <name>ProjectData</name>
     <message>
-        <location filename="../src/ProjectData.cpp" line="41"/>
-        <source>Vendor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ProjectData.cpp" line="42"/>
-        <source>Description</source>
-        <translation type="unfinished"></translation>
+        <source>Vendor</source>
+        <translation>Поставщик</translation>
     </message>
     <message>
         <location filename="../src/ProjectData.cpp" line="43"/>
-        <source>Planed Date</source>
-        <translation type="unfinished"></translation>
+        <source>Description</source>
+        <translation>Описание</translation>
     </message>
     <message>
         <location filename="../src/ProjectData.cpp" line="44"/>
-        <source>Actual Date</source>
-        <translation type="unfinished"></translation>
+        <source>Planed Date</source>
+        <translation>Планируемая дата</translation>
     </message>
     <message>
         <location filename="../src/ProjectData.cpp" line="45"/>
-        <source>Planed Cost</source>
-        <translation type="unfinished"></translation>
+        <source>Actual Date</source>
+        <translation>Фактическая дата</translation>
     </message>
     <message>
         <location filename="../src/ProjectData.cpp" line="46"/>
+        <source>Planed Cost</source>
+        <translation>Планируемая стоимость</translation>
+    </message>
+    <message>
+        <location filename="../src/ProjectData.cpp" line="47"/>
         <source>Actual Cost</source>
-        <translation type="unfinished"></translation>
+        <translation>Фактическая стоимость</translation>
     </message>
 </context>
 </TS>

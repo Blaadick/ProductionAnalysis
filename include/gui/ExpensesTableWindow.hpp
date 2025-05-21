@@ -3,7 +3,6 @@
 #include <QMdiSubWindow>
 #include <QStyledItemDelegate>
 #include <QTableView>
-#include "gui/MainWindow.hpp"
 
 class ExpensesTableWindow final : public QMdiSubWindow {
     Q_OBJECT

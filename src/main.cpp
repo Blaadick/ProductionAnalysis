@@ -1,23 +1,20 @@
 #include <QApplication>
-
-#include <QLocale>
-#include <qsettings.h>
 #include <QTranslator>
 #include "FileManager.hpp"
 #include "ProjectData.hpp"
-#include "../include/gui/MainWindow.hpp"
+#include "gui/MainWindow.hpp"
 
 int main(int argc, char* argv[]) {
     QApplication application(argc, argv);
 
     QTranslator translator;
-    if(translator.load(":/i18n/ProductionAnalysis_en_US")) {
+    if(translator.load(":/i18n/ProductionAnalysis_ru_RU")) {
         QApplication::installTranslator(&translator);
     }
 
     MainWindow mainWindow;
     FileManager fileManager;
-    ProjectData project;
+    ProjectData projectData;
 
     return QApplication::exec();
 }

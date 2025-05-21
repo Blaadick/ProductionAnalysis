@@ -1,9 +1,7 @@
 #include "gui/ExpenseCreationWindow.hpp"
 
-#include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-
 #include "ProjectData.hpp"
 
 ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(parent) {
@@ -16,13 +14,16 @@ ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(pa
 
     vendorEditLine = new QLineEdit(this);
     descriptionEditBox = new QPlainTextEdit(this);
+
     planedDateEditLine = new QDateEdit(this);
-    planedCostEditLine = new QDoubleSpinBox(this);
-
-    planedDateEditLine->setCalendarPopup(true);
     planedDateEditLine->setDate(QDate::currentDate());
+    planedDateEditLine->setCalendarPopup(true);
+    planedDateEditLine->setDisplayFormat("yyyy.MM.dd");
 
-    auto* vendorLabel = new QLabel(tr("Vendor"), this);
+    planedCostEditLine = new QDoubleSpinBox(this);
+    planedCostEditLine->setMaximum(std::numeric_limits<double>::max());
+
+    vendorLabel = new QLabel(tr("Vendor"), this);
     vendorLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
     auto* descriptionLabel = new QLabel(tr("Description"), this);
     descriptionLabel->setAlignment(Qt::AlignTop | Qt::AlignRight);
@@ -50,14 +51,19 @@ ExpenseCreationWindow::ExpenseCreationWindow(QWidget* parent) : QMdiSubWindow(pa
     horizontalLayout->addWidget(cancelButton);
 
     setWidget(centralWidget);
-    setWindowTitle("New Expense");
+    setWindowTitle(tr("Create Expense"));
     resize(400, 300);
 
-    connect(confirmButton, &QPushButton::clicked, this, &ExpenseCreationWindow::confirm);
+    connect(confirmButton, &QPushButton::clicked, this, &ExpenseCreationWindow::confirmCreation);
     connect(cancelButton, &QPushButton::clicked, this, &QMdiSubWindow::close);
 }
 
-void ExpenseCreationWindow::confirm() {
+void ExpenseCreationWindow::confirmCreation() {
+    if(vendorEditLine->text().isEmpty()) {
+        vendorLabel->setStyleSheet("font-weight: bold; color: red;");
+        return;
+    }
+
     ProjectData::addExpense(
         vendorEditLine->text(),
         descriptionEditBox->toPlainText(),

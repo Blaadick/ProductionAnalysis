@@ -1,9 +1,10 @@
 #pragma once
 
 #include <QDateEdit>
+#include <QLabel>
 #include <QLineEdit>
+#include <QMdiSubWindow>
 #include <QSpinBox>
-#include "gui/ExpensesTableWindow.hpp"
 
 class ExpenseCreationWindow final : public QMdiSubWindow {
     Q_OBJECT
@@ -13,9 +14,10 @@ public:
 
 private:
     QLineEdit* vendorEditLine;
+    QLabel* vendorLabel;
     QPlainTextEdit* descriptionEditBox;
     QDateEdit* planedDateEditLine;
     QDoubleSpinBox* planedCostEditLine;
 
-    void confirm();
+    void confirmCreation();
 };
