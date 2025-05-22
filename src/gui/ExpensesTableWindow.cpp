@@ -5,6 +5,8 @@
 #include <QMenu>
 #include <QPainter>
 #include "ProjectData.hpp"
+#include "gui/ExpenseEditWindow.hpp"
+#include "gui/MainWindow.hpp"
 
 ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent) {
     tableView = new QTableView(this);
@@ -68,9 +70,14 @@ void ExpensesTableWindow::showContextMenu(const QPoint& pos) const {
     if(!index.isValid()) return;
 
     QMenu menu(tableView);
+    menu.addAction("Details");
     const auto* actionEdit = menu.addAction("Edit");
+    menu.addSeparator();
     const auto* actionDelete = menu.addAction("Delete");
 
+    connect(actionEdit, &QAction::triggered, this, [index] {
+        MainWindow::openExpenseEditWindow(index);
+    });
     connect(actionDelete, &QAction::triggered, this, [this, index] {
         ProjectData::removeExpense(index.sibling(index.row(), 0).data().toInt());
         ProjectData::getExpensesSqlTableModel()->select();

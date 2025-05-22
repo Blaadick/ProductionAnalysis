@@ -4,6 +4,7 @@
 #include <QToolBar>
 #include <QWidget>
 #include "gui/ExpenseCreationWindow.hpp"
+#include "gui/ExpenseEditWindow.hpp"
 #include "gui/ExpensesTableWindow.hpp"
 
 MainWindow::MainWindow() {
@@ -14,11 +15,25 @@ MainWindow::MainWindow() {
 
     setCentralWidget(mdiArea);
     setContextMenuPolicy(Qt::NoContextMenu);
-
     show();
 }
 
 MainWindow::~MainWindow() {}
+
+template <SubWindow T>
+void MainWindow::openWindow() {
+    auto* window = new T(mdiArea);
+    mdiArea->addSubWindow(window);
+    window->show();
+}
+
+void MainWindow::openExpenseEditWindow(const QModelIndex& index) {
+    auto* window = new ExpenseEditWindow(index, mdiArea);
+    mdiArea->addSubWindow(window);
+    window->show();
+}
+
+QMdiArea* MainWindow::mdiArea;
 
 void MainWindow::setupMenuBar() {
     auto* menuBar = new QMenuBar(this);
@@ -45,7 +60,7 @@ void MainWindow::setupMenuBar() {
 
     setMenuBar(menuBar);
 
-    connect(actionNewExpense, &QAction::triggered, this, &MainWindow::openExpenseCreationWindow);
+    connect(actionNewExpense, &QAction::triggered, this, &MainWindow::openWindow<ExpenseCreationWindow>);
 
     connect(actionExit, &QAction::triggered, this, &MainWindow::close);
 
@@ -65,21 +80,9 @@ void MainWindow::setupToolBar() {
     toolBar->setFloatable(false);
     addToolBar(toolBar);
 
-    connect(action1, &QAction::triggered, this, &MainWindow::openExpensesTableWindow);
+    connect(action1, &QAction::triggered, this, &MainWindow::openWindow<ExpensesTableWindow>);
 }
 
 void MainWindow::toggleFullScreen() {
     isFullScreen() ? showNormal() : showFullScreen();
-}
-
-void MainWindow::openExpensesTableWindow() const {
-    auto* expensesTable = new ExpensesTableWindow(mdiArea);
-    mdiArea->addSubWindow(expensesTable);
-    expensesTable->show();
-}
-
-void MainWindow::openExpenseCreationWindow() const {
-    auto* expenseCreationWindow = new ExpenseCreationWindow(mdiArea);
-    mdiArea->addSubWindow(expenseCreationWindow);
-    expenseCreationWindow->show();
 }

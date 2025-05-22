@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
     QApplication application(argc, argv);
 
     QTranslator translator;
-    if(translator.load(":/i18n/ProductionAnalysis_ru_RU")) {
+    if(translator.load(":/i18n/ProductionAnalysis_en_US")) {
         QApplication::installTranslator(&translator);
     }
 

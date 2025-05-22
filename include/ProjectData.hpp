@@ -23,11 +23,22 @@ public:
         double planedCost
     );
 
+    static void editExpense(
+        int editableExpenseId,
+        const QString& vendor,
+        int type,
+        const QString& description,
+        const QDate& planedDate,
+        const QDate& actualDate,
+        double planedCost,
+        double actualCost
+    );
+
     static void removeExpense(int id);
 
     static QList<ExpenseType> getExpensesTypes();
 
-    static QSqlTableModel* getExpensesSqlTableModel();
+    static QSqlRelationalTableModel* getExpensesSqlTableModel();
 
 private:
     static QSqlDatabase db;

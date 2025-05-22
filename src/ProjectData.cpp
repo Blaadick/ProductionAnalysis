@@ -57,6 +57,40 @@ void ProjectData::addExpense(
     query.exec();
 }
 
+void ProjectData::editExpense(
+    const int editableExpenseId,
+    const QString& vendor,
+    const int type,
+    const QString& description,
+    const QDate& planedDate,
+    const QDate& actualDate,
+    const double planedCost,
+    const double actualCost
+) {
+    QSqlQuery query;
+    query.prepare(R"(
+        UPDATE Expenses SET
+            Vendor = ?,
+            Type = ?,
+            Description = ?,
+            PlanedDate = ?,
+            ActualDate = ?,
+            PlanedCost = ?,
+            ActualCost = ?
+        WHERE Id = ?
+    )");
+
+    query.addBindValue(vendor);
+    query.addBindValue(type);
+    query.addBindValue(description);
+    query.addBindValue(planedDate.toString("yyyy-MM-dd"));
+    query.addBindValue(actualDate.toString("yyyy-MM-dd"));
+    query.addBindValue(planedCost);
+    query.addBindValue(actualCost);
+    query.addBindValue(editableExpenseId);
+    query.exec();
+}
+
 void ProjectData::removeExpense(const int id) {
     QSqlQuery query;
     query.prepare("DELETE FROM Expenses WHERE Id = ?;");
@@ -80,7 +114,7 @@ QList<ExpenseType> ProjectData::getExpensesTypes() {
 /**
  * Better use QT signals, but whatever.
  */
-QSqlTableModel* ProjectData::getExpensesSqlTableModel() {
+QSqlRelationalTableModel* ProjectData::getExpensesSqlTableModel() {
     if(!expensesTableModel) {
         expensesTableModel = new QSqlRelationalTableModel(nullptr, db);
         expensesTableModel->setTable("Expenses");
