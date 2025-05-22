@@ -4,13 +4,21 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QPainter>
+#include <QLabel>
+#include <QVBoxLayout>
 #include "ProjectData.hpp"
 #include "gui/ExpenseEditWindow.hpp"
 #include "gui/MainWindow.hpp"
 
 ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent) {
-    tableView = new QTableView(this);
+    auto* centralWidget = new QWidget(this);
+    auto* centralLayout = new QVBoxLayout(centralWidget);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
+    setupFilters();
+    centralLayout->addLayout(filterLayout);
+
+    tableView = new QTableView(this);
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -21,12 +29,81 @@ ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent
     tableView->setItemDelegate(new ExpensesTableDelegate(tableView));
     tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    setWidget(tableView);
+    centralLayout->addWidget(tableView);
+
+    setWidget(centralWidget);
     setWindowTitle(tr("Expenses Table"));
     resize(800, 400);
 
     connect(tableView, &QTableView::customContextMenuRequested, this, &ExpensesTableWindow::showContextMenu);
     connect(tableView, &QTableView::doubleClicked, this, &ExpensesTableWindow::editExpense);
+}
+
+void ExpensesTableWindow::setupFilters() {
+    filterLayout = new QHBoxLayout();
+    
+    // Type filter
+    auto* typeLabel = new QLabel(tr("Type:"), this);
+    typeFilter = new QComboBox(this);
+    typeFilter->addItem(tr("All"), -1);
+    for(const auto& [name, id] : ProjectData::getExpensesTypes()) {
+        typeFilter->addItem(name, id);
+    }
+    
+    // Cost range filters
+    auto* costLabel = new QLabel(tr("Cost range:"), this);
+    minCostFilter = new QDoubleSpinBox(this);
+    maxCostFilter = new QDoubleSpinBox(this);
+    minCostFilter->setMaximum(std::numeric_limits<double>::max());
+    maxCostFilter->setMaximum(std::numeric_limits<double>::max());
+    
+    filterLayout->addWidget(typeLabel);
+    filterLayout->addWidget(typeFilter);
+    filterLayout->addWidget(costLabel);
+    filterLayout->addWidget(minCostFilter);
+    filterLayout->addWidget(new QLabel("-", this));
+    filterLayout->addWidget(maxCostFilter);
+    filterLayout->addStretch();
+    
+    connect(typeFilter, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ExpensesTableWindow::onFilterChanged);
+    connect(minCostFilter, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &ExpensesTableWindow::onFilterChanged);
+    connect(maxCostFilter, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &ExpensesTableWindow::onFilterChanged);
+}
+
+void ExpensesTableWindow::applyFilters() {
+    auto* model = ProjectData::getExpensesTableModel();
+    QString filter;
+    
+    // Type filter
+    const auto typeId = typeFilter->currentData().toInt();
+    if(typeId != -1) {
+        filter += QString("Type = %1").arg(typeId);
+    }
+    
+    // Cost range filter
+    const auto minCost = minCostFilter->value();
+    const auto maxCost = maxCostFilter->value();
+    
+    if(minCost > 0 || (maxCost > 0 && maxCost < std::numeric_limits<double>::max())) {
+        if(!filter.isEmpty()) {
+            filter += " AND ";
+        }
+        
+        if(minCost > 0 && maxCost > 0 && maxCost < std::numeric_limits<double>::max()) {
+            filter += QString("(PlanedCost >= %1 AND PlanedCost <= %2)").arg(minCost).arg(maxCost);
+        } else if(minCost > 0) {
+            filter += QString("PlanedCost >= %1").arg(minCost);
+        } else if(maxCost > 0) {
+            filter += QString("PlanedCost <= %1").arg(maxCost);
+        }
+    }
+    
+    model->setFilter(filter);
+    model->select();
+}
+
+void ExpensesTableWindow::onFilterChanged() {
+    applyFilters();
 }
 
 ExpensesTableWindow::ExpensesTableDelegate::ExpensesTableDelegate(QWidget* parent) : QStyledItemDelegate(parent) {}

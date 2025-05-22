@@ -3,6 +3,9 @@
 #include <QMdiSubWindow>
 #include <QStyledItemDelegate>
 #include <QTableView>
+#include <QComboBox>
+#include <QDoubleSpinBox>
+#include <QHBoxLayout>
 
 class ExpensesTableWindow final : public QMdiSubWindow {
     Q_OBJECT
@@ -19,8 +22,16 @@ private:
     };
 
     QTableView* tableView;
+    QComboBox* typeFilter;
+    QDoubleSpinBox* minCostFilter;
+    QDoubleSpinBox* maxCostFilter;
+    QHBoxLayout* filterLayout;
+
+    void setupFilters();
+    void applyFilters();
 
 private slots:
     void showContextMenu(const QPoint& pos);
     void editExpense(const QModelIndex& index);
+    void onFilterChanged();
 };
