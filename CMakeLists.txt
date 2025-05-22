@@ -15,4 +15,4 @@ qt_add_translations(ProductionAnalysis
         "translations/ProductionAnalysis_ru_RU.ts"
 )
 target_include_directories(ProductionAnalysis PRIVATE include)
-target_link_libraries(ProductionAnalysis PRIVATE Qt::Core Qt::Gui Qt::Widgets Qt::Sql)
+target_link_libraries(ProductionAnalysis PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Sql)

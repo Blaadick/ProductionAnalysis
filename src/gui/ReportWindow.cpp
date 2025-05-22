@@ -122,7 +122,7 @@ void ReportWindow::generateReport() {
     }
 
     auto* model = new QSqlQueryModel(this);
-    model->setQuery(query);
+    model->setQuery(std::move(query));
     model->setHeaderData(0, Qt::Horizontal, tr("Vendor"));
     model->setHeaderData(1, Qt::Horizontal, tr("Type"));
     model->setHeaderData(2, Qt::Horizontal, tr("Date"));
