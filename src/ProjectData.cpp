@@ -141,7 +141,7 @@ void ProjectData::addExpenseType(const QString& name) {
     query.exec();
 }
 
-void ProjectData::editExpenseType(int id, const QString& name) {
+void ProjectData::editExpenseType(const int id, const QString& name) {
     QSqlQuery query;
     query.prepare("UPDATE ExpensesTypes SET Name = ? WHERE Id = ?");
     query.addBindValue(name);
@@ -149,7 +149,7 @@ void ProjectData::editExpenseType(int id, const QString& name) {
     query.exec();
 }
 
-void ProjectData::removeExpenseType(int id) {
+void ProjectData::removeExpenseType(const int id) {
     QSqlQuery query;
     query.prepare("DELETE FROM ExpensesTypes WHERE Id = ?");
     query.addBindValue(id);

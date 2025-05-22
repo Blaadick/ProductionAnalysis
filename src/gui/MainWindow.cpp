@@ -7,6 +7,7 @@
 #include "gui/ExpenseEditWindow.hpp"
 #include "gui/ExpensesTableWindow.hpp"
 #include "gui/ExpenseTypesWindow.hpp"
+#include "gui/ExpenseTypeCreationWindow.hpp"
 #include "gui/ReportWindow.hpp"
 
 MainWindow::MainWindow() {
@@ -29,12 +30,6 @@ void MainWindow::openWindow() {
     window->show();
 }
 
-void MainWindow::openExpenseEditWindow(const QModelIndex& index) {
-    auto* window = new ExpenseEditWindow(index, mdiArea);
-    mdiArea->addSubWindow(window);
-    window->show();
-}
-
 QMdiArea* MainWindow::mdiArea;
 
 void MainWindow::setupMenuBar() {
@@ -43,12 +38,11 @@ void MainWindow::setupMenuBar() {
     auto* menuFile = menuBar->addMenu(tr("&File"));
     menuFile->addAction(tr("New Project"));
     const auto* actionNewExpense = menuFile->addAction(tr("New Expense"));
+    const auto* actionNewExpenseType = menuFile->addAction(tr("New Expense Type"));
     menuFile->addSeparator();
     menuFile->addAction(tr("Open Project"));
     menuFile->addSeparator();
     const auto* actionExit = menuFile->addAction(tr("Exit"));
-
-    menuBar->addMenu(tr("&View"));
 
     auto* menuWindow = menuBar->addMenu(tr("&Window"));
     auto* actionFullScreen = menuWindow->addAction(tr("Full Screen"));
@@ -63,6 +57,7 @@ void MainWindow::setupMenuBar() {
     setMenuBar(menuBar);
 
     connect(actionNewExpense, &QAction::triggered, this, &MainWindow::openWindow<ExpenseCreationWindow>);
+    connect(actionNewExpenseType, &QAction::triggered, this, &MainWindow::openWindow<ExpenseTypeCreationWindow>);
 
     connect(actionExit, &QAction::triggered, this, &MainWindow::close);
 

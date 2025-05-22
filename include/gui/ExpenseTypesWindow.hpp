@@ -10,7 +10,7 @@ public:
     explicit ExpenseTypesWindow(QWidget* parent = nullptr);
 
 private:
-    QTableView* tableView;
+    QTableView* tableView{};
 
     void setupUI();
 
