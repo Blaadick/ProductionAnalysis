@@ -15,7 +15,7 @@ ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setModel(ProjectData::getExpensesSqlTableModel());
+    tableView->setModel(ProjectData::getExpensesTableModel());
     tableView->hideColumn(0);
     tableView->sortByColumn(4, Qt::DescendingOrder);
     tableView->setItemDelegate(new ExpensesTableDelegate(tableView));
@@ -26,6 +26,7 @@ ExpensesTableWindow::ExpensesTableWindow(QWidget* parent) : QMdiSubWindow(parent
     resize(800, 400);
 
     connect(tableView, &QTableView::customContextMenuRequested, this, &ExpensesTableWindow::showContextMenu);
+    connect(tableView, &QTableView::doubleClicked, this, &ExpensesTableWindow::editExpense);
 }
 
 ExpensesTableWindow::ExpensesTableDelegate::ExpensesTableDelegate(QWidget* parent) : QStyledItemDelegate(parent) {}
@@ -65,7 +66,7 @@ void ExpensesTableWindow::ExpensesTableDelegate::paint(
     QStyledItemDelegate::paint(painter, option, index);
 }
 
-void ExpensesTableWindow::showContextMenu(const QPoint& pos) const {
+void ExpensesTableWindow::showContextMenu(const QPoint& pos) {
     const auto index = tableView->indexAt(pos);
     if(!index.isValid()) return;
 
@@ -75,13 +76,31 @@ void ExpensesTableWindow::showContextMenu(const QPoint& pos) const {
     menu.addSeparator();
     const auto* actionDelete = menu.addAction("Delete");
 
-    connect(actionEdit, &QAction::triggered, this, [index] {
-        MainWindow::openExpenseEditWindow(index);
+    connect(actionEdit, &QAction::triggered, this, [this, index] {
+        editExpense(index);
     });
     connect(actionDelete, &QAction::triggered, this, [this, index] {
         ProjectData::removeExpense(index.sibling(index.row(), 0).data().toInt());
-        ProjectData::getExpensesSqlTableModel()->select();
+        ProjectData::getExpensesTableModel()->select();
     });
 
     menu.exec(QCursor::pos());
+}
+
+void ExpensesTableWindow::editExpense(const QModelIndex& index) {
+    if(!index.isValid()) return;
+
+    auto* window = new ExpenseEditWindow(index, this);
+    
+    // Center the edit window relative to the table window
+    const auto tableGeometry = geometry();
+    const auto editGeometry = window->geometry();
+    const auto x = tableGeometry.x() + (tableGeometry.width() - editGeometry.width()) / 2;
+    const auto y = tableGeometry.y() + (tableGeometry.height() - editGeometry.height()) / 2;
+    window->move(x, y);
+    
+    window->show();
+    connect(window, &QMdiSubWindow::destroyed, this, [this] {
+        ProjectData::getExpensesTableModel()->select();
+    });
 }

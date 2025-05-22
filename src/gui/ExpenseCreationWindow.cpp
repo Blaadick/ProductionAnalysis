@@ -81,6 +81,6 @@ void ExpenseCreationWindow::confirmCreation() {
         planedCostEditLine->value()
     );
 
-    ProjectData::getExpensesSqlTableModel()->select();
+    ProjectData::getExpensesTableModel()->select();
     close();
 }

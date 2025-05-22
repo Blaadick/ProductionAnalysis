@@ -5,9 +5,10 @@
 #include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QPlainTextEdit>
+#include <QModelIndex>
 
 template <typename T>
-concept SubWindow = std::derived_from<T, QMdiSubWindow>;
+concept SubWindow = std::is_base_of_v<QMdiSubWindow, T>;
 
 class MainWindow final : public QMainWindow {
     Q_OBJECT

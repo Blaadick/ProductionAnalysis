@@ -6,6 +6,7 @@
 #include "gui/ExpenseCreationWindow.hpp"
 #include "gui/ExpenseEditWindow.hpp"
 #include "gui/ExpensesTableWindow.hpp"
+#include "gui/ExpenseTypesWindow.hpp"
 
 MainWindow::MainWindow() {
     mdiArea = new QMdiArea(this);
@@ -73,7 +74,7 @@ void MainWindow::setupMenuBar() {
 void MainWindow::setupToolBar() {
     auto* toolBar = new QToolBar(this);
     const auto* action1 = toolBar->addAction(QIcon::fromTheme("aseprite"), "Aseprite");
-    toolBar->addAction(QIcon::fromTheme("firefox"), "Firefox");
+    const auto* action2 = toolBar->addAction(QIcon::fromTheme("firefox"), "Firefox");
     toolBar->addAction(QIcon::fromTheme("org.prismlauncher.PrismLauncher"), "PrismLauncher");
     toolBar->addAction(QIcon::fromTheme("kitty"), "Kitty");
     toolBar->setIconSize(QSize(32, 32));
@@ -81,6 +82,7 @@ void MainWindow::setupToolBar() {
     addToolBar(toolBar);
 
     connect(action1, &QAction::triggered, this, &MainWindow::openWindow<ExpensesTableWindow>);
+    connect(action2, &QAction::triggered, this, &MainWindow::openWindow<ExpenseTypesWindow>);
 }
 
 void MainWindow::toggleFullScreen() {

@@ -15,6 +15,8 @@ public:
 
     ~ProjectData() override;
 
+    static void addExpenseType(const QString& name);
+
     static void addExpense(
         const QString& vendor,
         int type,
@@ -22,6 +24,8 @@ public:
         const QDate& planedDate,
         double planedCost
     );
+
+    static void editExpenseType(int id, const QString& name);
 
     static void editExpense(
         int editableExpenseId,
@@ -34,13 +38,18 @@ public:
         double actualCost
     );
 
+    static void removeExpenseType(int id);
+
     static void removeExpense(int id);
 
     static QList<ExpenseType> getExpensesTypes();
 
-    static QSqlRelationalTableModel* getExpensesSqlTableModel();
+    static QSqlTableModel* getExpenseTypesTableModel();
+
+    static QSqlRelationalTableModel* getExpensesTableModel();
 
 private:
     static QSqlDatabase db;
     static QSqlRelationalTableModel* expensesTableModel;
+    static QSqlTableModel* expenseTypesTableModel;
 };

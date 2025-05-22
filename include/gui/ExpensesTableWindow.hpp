@@ -21,5 +21,6 @@ private:
     QTableView* tableView;
 
 private slots:
-    void showContextMenu(const QPoint& pos) const;
+    void showContextMenu(const QPoint& pos);
+    void editExpense(const QModelIndex& index);
 };

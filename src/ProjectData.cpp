@@ -36,6 +36,7 @@ ProjectData::ProjectData() {
 
 ProjectData::~ProjectData() {
     delete expensesTableModel;
+    delete expenseTypesTableModel;
     db.close();
 }
 
@@ -114,7 +115,7 @@ QList<ExpenseType> ProjectData::getExpensesTypes() {
 /**
  * Better use QT signals, but whatever.
  */
-QSqlRelationalTableModel* ProjectData::getExpensesSqlTableModel() {
+QSqlRelationalTableModel* ProjectData::getExpensesTableModel() {
     if(!expensesTableModel) {
         expensesTableModel = new QSqlRelationalTableModel(nullptr, db);
         expensesTableModel->setTable("Expenses");
@@ -133,5 +134,38 @@ QSqlRelationalTableModel* ProjectData::getExpensesSqlTableModel() {
     return expensesTableModel;
 }
 
+void ProjectData::addExpenseType(const QString& name) {
+    QSqlQuery query;
+    query.prepare("INSERT INTO ExpensesTypes (Name) VALUES (?)");
+    query.addBindValue(name);
+    query.exec();
+}
+
+void ProjectData::editExpenseType(int id, const QString& name) {
+    QSqlQuery query;
+    query.prepare("UPDATE ExpensesTypes SET Name = ? WHERE Id = ?");
+    query.addBindValue(name);
+    query.addBindValue(id);
+    query.exec();
+}
+
+void ProjectData::removeExpenseType(int id) {
+    QSqlQuery query;
+    query.prepare("DELETE FROM ExpensesTypes WHERE Id = ?");
+    query.addBindValue(id);
+    query.exec();
+}
+
+QSqlTableModel* ProjectData::getExpenseTypesTableModel() {
+    if(!expenseTypesTableModel) {
+        expenseTypesTableModel = new QSqlTableModel(nullptr, db);
+        expenseTypesTableModel->setTable("ExpensesTypes");
+        expenseTypesTableModel->setHeaderData(1, Qt::Horizontal, tr("Name"));
+        expenseTypesTableModel->select();
+    }
+    return expenseTypesTableModel;
+}
+
 QSqlDatabase ProjectData::db;
 QSqlRelationalTableModel* ProjectData::expensesTableModel;
+QSqlTableModel* ProjectData::expenseTypesTableModel;

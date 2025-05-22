@@ -112,6 +112,6 @@ void ExpenseEditWindow::confirmEdit(const int expenseId) {
         actualCostEditLine->value()
     );
 
-    ProjectData::getExpensesSqlTableModel()->select();
+    ProjectData::getExpensesTableModel()->select();
     close();
 }

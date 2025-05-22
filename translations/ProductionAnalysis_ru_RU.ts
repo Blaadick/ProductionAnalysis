@@ -11,7 +11,7 @@
     <message>
         <location filename="../src/gui/ExpenseCreationWindow.cpp" line="33"/>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location filename="../src/gui/ExpenseCreationWindow.cpp" line="35"/>
@@ -55,97 +55,80 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/gui/MainWindow.cpp" line="27"/>
-        <source>New Project</source>
-        <translation>Создать проект</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/MainWindow.cpp" line="30"/>
-        <source>Open Project</source>
-        <translation>Открыть проект</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/MainWindow.cpp" line="32"/>
-        <source>Exit</source>
-        <translation>Выйти</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/MainWindow.cpp" line="36"/>
-        <source>&amp;Window</source>
-        <translation>&amp;Окно</translation>
-    </message>
-    <message>
         <location filename="../src/gui/MainWindow.cpp" line="26"/>
-        <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
+        <source>&amp;Expenses</source>
+        <translation>&amp;Затраты</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/MainWindow.cpp" line="27"/>
+        <source>&amp;New</source>
+        <translation>&amp;Новая</translation>
     </message>
     <message>
         <location filename="../src/gui/MainWindow.cpp" line="28"/>
-        <source>New Expense</source>
-        <translation>Добавить затрату</translation>
+        <source>&amp;Table</source>
+        <translation>&amp;Таблица</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainWindow.cpp" line="34"/>
-        <source>&amp;View</source>
-        <translation>&amp;Вид</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/MainWindow.cpp" line="37"/>
-        <source>Full Screen</source>
-        <translation>Полный экран</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/MainWindow.cpp" line="39"/>
-        <source>Cascade Windows</source>
-        <translation>Окна каскадом</translation>
+        <location filename="../src/gui/MainWindow.cpp" line="30"/>
+        <source>&amp;Types</source>
+        <translation>&amp;Типы</translation>
     </message>
     <message>
         <location filename="../src/gui/MainWindow.cpp" line="40"/>
-        <source>Tile Windows</source>
-        <translation>Окна плиткой</translation>
+        <source>New Expense</source>
+        <translation>Новая затрата</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/MainWindow.cpp" line="41"/>
+        <source>Expenses Table</source>
+        <translation>Таблица расходов</translation>
     </message>
     <message>
         <location filename="../src/gui/MainWindow.cpp" line="42"/>
-        <source>Close All</source>
-        <translation>Закрыть все окна</translation>
+        <source>Expense Types</source>
+        <translation>Типы затрат</translation>
     </message>
 </context>
 <context>
-    <name>ProjectData</name>
+    <name>ExpenseTypesWindow</name>
     <message>
-        <location filename="../src/ProjectData.cpp" line="87"/>
-        <source>Vendor</source>
-        <translation>Поставщик</translation>
+        <location filename="../src/gui/ExpenseTypesWindow.cpp" line="31"/>
+        <source>Expense Types</source>
+        <translation>Типы затрат</translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="88"/>
-        <source>Type</source>
-        <translation>Тип</translation>
+        <location filename="../src/gui/ExpenseTypesWindow.cpp" line="71"/>
+        <source>Edit</source>
+        <translation>Редактировать</translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="89"/>
-        <source>Description</source>
-        <translation>Описание</translation>
+        <location filename="../src/gui/ExpenseTypesWindow.cpp" line="72"/>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+</context>
+<context>
+    <name>ExpenseTypeEditWindow</name>
+    <message>
+        <location filename="../src/gui/ExpenseTypeEditWindow.cpp" line="15"/>
+        <source>Name</source>
+        <translation>Название</translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="90"/>
-        <source>Planed Date</source>
-        <translation>План. дата</translation>
+        <location filename="../src/gui/ExpenseTypeEditWindow.cpp" line="27"/>
+        <source>Confirm</source>
+        <translation>Подтвердить</translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="91"/>
-        <source>Actual Date</source>
-        <translation>Факт. дата</translation>
+        <location filename="../src/gui/ExpenseTypeEditWindow.cpp" line="28"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/ProjectData.cpp" line="92"/>
-        <source>Planed Cost</source>
-        <translation>План. стоимость</translation>
-    </message>
-    <message>
-        <location filename="../src/ProjectData.cpp" line="93"/>
-        <source>Actual Cost</source>
-        <translation>Факт. стоимость</translation>
+        <location filename="../src/gui/ExpenseTypeEditWindow.cpp" line="32"/>
+        <source>Edit Expense Type</source>
+        <translation>Редактирование типа затрат</translation>
     </message>
 </context>
 </TS>
